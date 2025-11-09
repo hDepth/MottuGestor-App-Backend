@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const cors = require('cors'); // Para permitir requisições do seu app React Native
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Configuração do body-parser para JSON
 app.use(bodyParser.json());
@@ -14,10 +14,12 @@ app.use(cors());
 
 // Configuração do banco de dados Oracle 
 const dbConfig = {
-    user          : "rm558833",
-    password      : "200306",
-    connectString : "oracle.fiap.com.br:1521/ORCL" // Ou o TNS alias, ou o endereço IP:porta/serviço
-};
+    user: process.env.ORACLE_USER,
+    password: process.env.ORACLE_PASSWORD,
+    connectString: process.env.ORACLE_CONNECT_STRING
+  };
+  
+
 
 // Função para obter conexão com o banco de dados
 async function getConnection() {
